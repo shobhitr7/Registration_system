@@ -11,13 +11,31 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->date('dob');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('mobile_number');
             $table->string('password');
-            $table->rememberToken();
+
+            // Use unsignedBigInteger for foreign key columns
+            $table->BigInteger('country_id');
+            $table->BigInteger('state_id');
+            $table->BigInteger('city_id');
+
+            $table->string('locality');
+            $table->string('pincode');
+
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+
+            // Foreign key constraints
+            // $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            // $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            // $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+
             $table->timestamps();
         });
 
